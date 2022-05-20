@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="stylesheet.css">
+<title>Todo</title>
+</head>
+<body>
+<span th:replace="header"></span>
+<h1>未完了</h1>
+<ul th:each="task:${tasks_f}"><li>
+	<span th:text="${task.title}" class="li_left"></span>
+	<span th:text="${task.name}"></span>
+	<form th:action="@{tasks/completed/{code}(code=${task.code})}" method="get">
+		<input type="submit" value="完了">
+	</form>
+	<form th:action="@{tasks/edit/{code}(code=${task.code})}" method="get">
+		<input type="submit" value="編集">
+	</form>
+	<form th:action="@{tasks/delete/{code}(code=${task.code})}" method="get">
+		<input type="submit" value="削除">
+	</form>
+</li></ul>
+<br><hr><br>
+<h1>完了済</h1>
+<ul th:each="task:${tasks_t}"><li>
+	<span th:each="task:${tasks_t}"></span>
+	<span th:text="${task.title}"></span>
+	<span th:text="${task.name}"></span>
+	<form th:action="@{tasks/delete/{code}(code=${task.code})}" method="get">
+		<input type="submit" value="削除">
+	</form>
+</li></ul>
+</body>
+</html>

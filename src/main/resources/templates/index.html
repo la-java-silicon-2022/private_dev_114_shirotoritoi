@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ログイン</title>
+</head>
+<body>
+
+<form action="/login" method="post">
+	　名　前　：<input type="text" name="name">
+	<br>
+	パスワード：<input type="password" name="password">
+	<br>
+	<input type="submit" value="ログイン">
+</form>
+<br>
+<th:block th:if="${session.flg}">
+	<p style="color:red">入力内容を確認してください</p>
+</th:block>
+</body>
+</html>

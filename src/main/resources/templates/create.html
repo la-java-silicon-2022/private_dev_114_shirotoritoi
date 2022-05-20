@@ -1,0 +1,11 @@
+<h1>新規作成</h1>
+<form action="/tasks/create" method="post">
+	内容：<br>
+	<input type="text" name="title"><br>
+	登録者：<br>
+	<span th:textarea="${session.user.name}"></span><br>
+	<input type="submit" value="作成">
+</form>
+<form action="/tasks" method="get">
+	<input type="submit" value="戻る">
+</form>

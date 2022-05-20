@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="stylesheet.css">
+<title>Todo</title>
+</head>
+<body>
+<span th:replace="header"></span>
+<form action="/tasks/create" method="post">
+	内容：<br>
+	<input type="text" name="title"><br>
+	登録者：<br>
+	<span th:text="${session.user.name}"></span><br>
+	<input type="submit" value="作成">
+</form>
+<form action="/tasks" method="get">
+	<input type="submit" value="戻る">
+</form>
+</body>
+</html>

@@ -1,0 +1,14 @@
+<ul th:each="task:${tasks}"><li>
+	<span th:text="${task.title}"></span>
+	<div class="button">
+		<form th:action="@{tasks/edit/{code}(code=${task.code})}" method="get" class="btn">
+			<input type="submit" value="編集" id="btn2">
+		</form>
+		<form th:action="@{tasks/delete/{code}(code=${task.code})}" method="get" class="btn">
+			<input type="submit" value="削除"  id="btn3">
+		</form>
+		<form th:action="@{tasks/completed/{code}(code=${task.code})}" method="get" class="btn">
+			<input type="submit" value="完了" id="btn1">
+		</form>
+	</div>
+</li></ul>

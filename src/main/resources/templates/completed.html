@@ -1,0 +1,7 @@
+<ul th:each="task:${tasks}"><li>
+	<span th:text="${task.title}"></span>
+	<form th:action="@{tasks/delete/{code}(code=${task.code})}" method="get" class="button">
+		<span th:text="${task.name}"></span>
+		<input type="submit" value="削除" id="btn4">
+	</form>
+</li></ul>
