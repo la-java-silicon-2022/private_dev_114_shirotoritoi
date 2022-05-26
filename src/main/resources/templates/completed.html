@@ -1,7 +1,30 @@
-<ul th:each="task:${tasks}"><li>
-	<span th:text="${task.title}"></span>
-	<form th:action="@{tasks/delete/{code}(code=${task.code})}" method="get" class="button">
-		<span th:text="${task.name}"></span>
-		<input type="submit" value="削除" id="btn4">
-	</form>
-</li></ul>
+<ul>
+	<li>
+		<form action="/tasks/completed/delete" method="get">
+			<input type="submit" value="全件削除" id="delete_all">
+		</form>
+	</li>
+</ul>
+<div  th:each="date:${date}">
+	<span th:text="${date}"></span>
+	<ul>
+		<div  th:each="task:${tasks}">
+			<li th:if="${(task.date).equals(date)}">
+				<span th:text="${task.title}" class="list_text"></span>
+				<div class="function">
+					<span th:text="${task.name}" class="list_name"></span>
+					<th:block th:if="${session.user.name} == ${task.name}">
+						<form th:action="@{tasks/delete/{code}(code=${task.code})}" method="get" class="form_btn">
+							<input type="submit" value="削除" class="large_btn del_btn">
+						</form>
+					</th:block>
+					<th:block th:if="${session.user.name} != ${task.name}">
+						<form class="form_btn">
+							<input type="submit" value="削除" class="large_btn del_btn" style="background: #5f6c7b">
+						</form>
+					</th:block>
+				</div>
+			</li>
+		</div>
+	</ul>
+</div>

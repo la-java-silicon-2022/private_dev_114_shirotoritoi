@@ -1,21 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>ログイン</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="stylesheet.css">
+	<title>login</title>
 </head>
 <body>
-
-<form action="/login" method="post">
-	　名　前　：<input type="text" name="name">
-	<br>
-	パスワード：<input type="password" name="password">
-	<br>
-	<input type="submit" value="ログイン">
-</form>
-<br>
-<th:block th:if="${session.flg}">
-	<p style="color:red">入力内容を確認してください</p>
-</th:block>
+	<form action="/login" method="post" class="form_login">
+		<br>
+		<h2>ログイン</h2>
+		<hr>
+		<input type="text" name="mail"  placeholder="メールアドレス">
+		<br><br>
+		<input type="password" name="password"　 placeholder="パスワード">
+		<br><br>
+		<input type="submit" value="ログイン" class="landscape_btn" id="lin_btn">
+		<br><br>
+		<div class="userlink">
+			<a href="/user">新規登録</a>
+		</div>
+		<br>
+	</form>
+	<div class="userlink">
+		<th:block th:if="${session.flg1}">
+			<p style="color:red">入力内容を確認してください</p>
+		</th:block>
+	</div>
 </body>
 </html>

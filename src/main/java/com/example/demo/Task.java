@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,8 +24,14 @@ public class Task {
 	@Column(name = "title")
 	private String title;
 
+	@Column(name = "date")
+	private Date date;
+
 	@Column(name = "completed")
 	private Boolean completed;
+
+	@Column(name = "shared")
+	private Integer shared;
 
 	public Integer getCode() {
 		return code;
@@ -48,6 +57,16 @@ public class Task {
 		this.title = title;
 	}
 
+	public String getDate() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		String strDate = dateFormat.format(this.date);
+		return strDate;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
 	public Boolean getCompleted() {
 		return completed;
 	}
@@ -56,15 +75,25 @@ public class Task {
 		this.completed = completed;
 	}
 
-	public Task(Integer code, String name, String title, Boolean completed) {
-		this(name, title, completed);
+	public Integer getShared() {
+		return shared;
+	}
+
+	public void setShared(Integer shared) {
+		this.shared = shared;
+	}
+
+	public Task(Integer code, String name, String title, Date date, Boolean completed, Integer shared) {
+		this(name, title, date, completed, shared);
 		this.code = code;
 	}
 
-	public Task(String name, String title, Boolean completed) {
+	public Task(String name, String title, Date date, Boolean completed, Integer shared) {
 		this.name = name;
 		this.title = title;
 		this.completed = completed;
+		this.shared = shared;
+		this.date = date;
 	}
 
 	public Task() {

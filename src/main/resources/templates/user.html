@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="stylesheet.css">
+	<title>login</title>
+</head>
+<body>
+	<form action="/user" method="post" class="form_login">
+		<br>
+		<h2>新規登録</h2>
+		<hr>
+		<input type="text" name="name"  placeholder="名前">
+		<br>
+		<input type="text" name="mail"  placeholder="メールアドレス">
+		<br>
+		<input type="text" name="password"  placeholder="パスワード">
+		<br><br>
+		<input type="submit" value="登録" class="landscape_btn" id="lin_btn">
+		<br><br>
+		<div id="userlink">
+			<a href="/">戻る</a>
+		</div>
+		<br>
+	</form>
+</body>
+</html>

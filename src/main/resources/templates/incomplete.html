@@ -1,14 +1,57 @@
-<ul th:each="task:${tasks}"><li>
-	<span th:text="${task.title}"></span>
-	<div class="button">
-		<form th:action="@{tasks/edit/{code}(code=${task.code})}" method="get" class="btn">
-			<input type="submit" value="編集" id="btn2">
-		</form>
-		<form th:action="@{tasks/delete/{code}(code=${task.code})}" method="get" class="btn">
-			<input type="submit" value="削除"  id="btn3">
-		</form>
-		<form th:action="@{tasks/completed/{code}(code=${task.code})}" method="get" class="btn">
-			<input type="submit" value="完了" id="btn1">
-		</form>
-	</div>
-</li></ul>
+<div  th:each="date:${date}">
+	<span th:if="${(session.today).equals(date)}" th:text="${date}" style="font-size: 18px; font-weight: bold;"></span>
+	<span th:if="!${(session.today).equals(date)}" th:text="${date}"></span>
+	<ul>
+		<div  th:each="task:${tasks}">
+			<th:block th:if="${(session.today) > date}">
+				<li th:if="${(task.date).equals(date)}" style="background: #ffe4e1">
+					<span th:text="${task.title}" class="list_text"></span>
+					<div class="function">
+						<form th:action="@{tasks/edit/{code}(code=${task.code})}" method="get" class="form_btn">
+							<input type="submit" value="編集" class="normal_btn">
+						</form>
+						<form th:action="@{tasks/delete/{code}(code=${task.code})}" method="get" class="form_btn">
+							<input type="submit" value="削除"  class="normal_btn">
+						</form>
+						<form th:action="@{tasks/completed/{code}(code=${task.code})}" method="get" class="form_btn">
+							<input type="submit" value="完了" class="large_btn cmp_btn">
+						</form>
+					</div>
+				</li>
+			</th:block>
+			<th:block th:if="${date.equals(session.today)}">
+				<li th:if="${(task.date).equals(date)}"  style="background: #d1ffd1;">
+					<span th:text="${task.title}" class="list_text"></span>
+					<div class="function">
+						<form th:action="@{tasks/edit/{code}(code=${task.code})}" method="get" class="form_btn">
+							<input type="submit" value="編集" class="normal_btn">
+						</form>
+						<form th:action="@{tasks/delete/{code}(code=${task.code})}" method="get" class="form_btn">
+							<input type="submit" value="削除"  class="normal_btn">
+						</form>
+						<form th:action="@{tasks/completed/{code}(code=${task.code})}" method="get" class="form_btn">
+							<input type="submit" value="完了" class="large_btn cmp_btn">
+						</form>
+					</div>
+				</li>
+			</th:block>
+			<th:block th:if="${(session.today) < date}">
+				<li th:if="${(task.date).equals(date)}">
+					<span th:text="${task.title}" class="list_text"></span>
+					<div class="function">
+						<form th:action="@{tasks/edit/{code}(code=${task.code})}" method="get" class="form_btn">
+							<input type="submit" value="編集" class="normal_btn">
+						</form>
+						<form th:action="@{tasks/delete/{code}(code=${task.code})}" method="get" class="form_btn">
+							<input type="submit" value="削除"  class="normal_btn">
+						</form>
+						<form th:action="@{tasks/completed/{code}(code=${task.code})}" method="get" class="form_btn">
+							<input type="submit" value="完了" class="large_btn cmp_btn">
+						</form>
+					</div>
+				</li>
+			</th:block>
+		</div>
+	</ul>
+	<hr>
+</div>

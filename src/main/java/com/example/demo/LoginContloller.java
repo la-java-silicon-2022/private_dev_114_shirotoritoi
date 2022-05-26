@@ -18,6 +18,9 @@ public class LoginContloller {
 	@Autowired
 	UserRepository userRepository;
 
+	@Autowired
+	SharedRepository sharedRepository;
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String login() {
 		session.invalidate();
@@ -26,20 +29,33 @@ public class LoginContloller {
 
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String index() {
-		session.setAttribute("flg", true);
+		session.setAttribute("flg1", true);
 		return "index";
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String index(
-			@RequestParam(name = "name", defaultValue = "") String name,
+			@RequestParam(name = "mail", defaultValue = "") String mail,
 			@RequestParam(name = "password", defaultValue = "") String password) {
-		List<User> user = userRepository.findByNameAndPassword(name, password);
+		List<User> user = userRepository.findByMailAndPassword(mail, password);
 		if (user.size() == 0) {
 			return "redirect:/login";
 		}
 		session.setAttribute("user", user.get(0));
-		session.setAttribute("flg", false);
-		return "redirect:/tasks";
+		session.setAttribute("sharedList", sharedRepository.findAll());
+		return "redirect:/tasks/1";
+	}
+
+	@RequestMapping(value = "/user")
+	public String user() {
+		return "user";
+	}
+
+	@RequestMapping(value = "/user", method = RequestMethod.POST)
+	public String user(@RequestParam("mail") String mail,
+			@RequestParam("name") String name,
+			@RequestParam("password") String password) {
+		userRepository.saveAndFlush(new User(mail, name, password));
+		return "index";
 	}
 }

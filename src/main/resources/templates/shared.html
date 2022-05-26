@@ -1,0 +1,55 @@
+
+	<ul>
+		<div  th:each="sharedTask:${session.sharedList}">
+			<li class="shared_list">
+				<div class="shared_text">
+					<form th:action="@{/tasks/shared/{code}(code=${sharedTask.code})}" method="get">
+						<input type="submit" th:value="${sharedTask.name}" class="shared_btn">
+					</form>
+				</div>
+				<div class="function">
+					<form th:action="@{tasks/shared/delete/{code}(code=${sharedTask.code})}" method="get" class="form_btn">
+						<input type="submit" value="削除" class="large_btn del_btn">
+					</form>
+				</div>
+			</li>
+			<th:block th:if="${session.shared == sharedTask.code}">
+				<div  th:each="date:${date}">
+					<span th:text="${date}"></span>
+					<div  th:each="task:${tasks}">
+						<li th:if="${(task.date).equals(date)}">
+							<span th:text="${task.title}" class="list_text"></span>
+							<div class="function">
+								<th:block  th:if="${session.user.name} != ${task.name}">
+									<span th:text="${task.name}" class="list_name"></span>
+								</th:block>
+								<th:block  th:if="${session.user.name} == ${task.name}">
+									<form th:action="@{tasks/edit/{code}(code=${task.code})}" method="get" class="form_btn">
+										<input type="submit" value="編集" class="normal_btn">
+									</form>
+									<form th:action="@{tasks/delete/{code}(code=${task.code})}" method="get" class="form_btn">
+										<input type="submit" value="削除"  class="normal_btn">
+									</form>
+								</th:block>
+								<form th:action="@{tasks/completed/{code}(code=${task.code})}" method="get" class="form_btn">
+									<input type="submit" value="完了" class="large_btn cmp_btn">
+								</form>
+							</div>
+						</li>
+					</div>
+				</div>
+				<br>
+			</th:block>
+		</div>
+		<hr>
+		<li>
+			<form action="/tasks/shared/create" method="post" class="form_btn">
+				<div class="shared_text">
+						<textarea  placeholder="     フォルダ名を入力" class="textarea_shared"  name="name"></textarea>
+				</div>
+				<div class="function">
+					<input type="submit" value="作成" class="large_btn cmp_btn">
+				</div>
+			</form>
+		</li>
+	</ul>

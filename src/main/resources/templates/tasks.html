@@ -1,38 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="stylesheet.css">
-<title>ToDo</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="stylesheet.css">
+	<title>ToDo</title>
 </head>
 <body>
-<section>
-	<header>
-		<div class="header_index">
-			<form action="/tasks/false" class="index">
-				<input type="submit" value="ToDoリスト" class="index" id="index1"  th:style="|background-color: ${color1}|">
-			</form> 
-			<form action="/tasks" class="index">
-				<input type="submit" value="共有リスト" class="index" id="index2" th:style="|background-color: ${color2}|">
-			</form>
-			<form action="/tasks/true" class="index">
-				<input type="submit" value="削除済み" class="index" id="index3" th:style="|background-color: ${color3}|">
-			</form>
+	<section>
+		<header>
+			<div class="tablist">
+				<form action="/tasks/1" class="form_tab">
+					<input type="submit" value="ToDoリスト" class="tab"  th:style="|background-color: ${color1}|">
+				</form> 
+				<form action="/tasks/2" class="form_tab">
+					<input type="submit" value="共有リスト" class="tab" th:style="|background-color: ${color2}|">
+				</form>
+				<form action="/tasks/3" class="form_tab">
+					<input type="submit" value="履歴" class="tab" th:style="|background-color: ${color3}|">
+				</form>
+			</div>
+		</header>
+		<div class="main">
+			<div class="listbox">
+				<th:block th:if="${session.flg1}">
+					<span th:replace="incomplete"></span>
+				</th:block>
+				<th:block th:if="${session.flg2}">
+					<span th:replace="shared"></span>
+				</th:block>
+				<th:block th:if="${session.flg3}">
+					<span th:replace="completed"></span>
+				</th:block>
+			</div>
 		</div>
-	</header>
-	<div class="main">
-		<div class="listbox">
-			<th:block th:if="${session.flg}">
-				<span th:replace="completed"></span>
+		<div class="side">
+			<th:block th:if="${session.task} == null">
+				<span th:replace="create" id="create"></span>
 			</th:block>
-			<th:block th:if="${!(session.flg)}">
-				<span th:replace="incomplete"></span>
+			<th:block th:if="${session.task} != null">
+				<span th:replace="edit" id="edit"></span>
 			</th:block>
 		</div>
-	</div>
-	<div class="side">
-		<span th:replace="create" id="create"></span>
-	</div>
-</section>
+	</section>
 </body>
 </html>

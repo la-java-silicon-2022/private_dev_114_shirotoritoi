@@ -1,21 +1,15 @@
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="UTF-8">
-<link rel="stylesheet" href="stylesheet.css">
-<title>Todo</title>
-</head>
-<body>
-<span th:replace="header"></span>
+<h1>編集</h1>
 <form action="/tasks/edit" method="post">
-	内容：<br>
-	<input type="text" th:value="${task.title}" name="title"><br>
-	登録者：<br>
-	<span th:text="${session.user.name}"></span><br>
-	<input type="hidden" th:value="${task.code}" name="code"><input type="submit" value="送信">
+	<textarea th:text="${session.task.title}" name="title" wrap="soft" class="textarea_side"></textarea>
+	<br><br>期限：
+	<input type="date" name="date" th:value="${session.task.date}">
+	<br>共有：
+	<select name="shared">
+		<option value="0">選択なし</option>
+		<option th:if="${session.task.shared==shared.code}" th:value="${shared.code}" th:each="shared:${session.sharedList}" th:text="${shared.name}" selected></option>
+		<option th:if="${session.task.shared!=shared.code}" th:value="${shared.code}" th:each="shared:${session.sharedList}" th:text="${shared.name}"></option>
+	</select>
+	<br><br>
+	<input type="hidden" th:value="${session.task.code}" name="code">
+	<input type="submit" value="保存"  class="landscape_btn">
 </form>
-<form action="/tasks" method="get">
-	<input type="submit" value="戻る">
-</form>
-</body>
-</html>

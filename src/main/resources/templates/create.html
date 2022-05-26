@@ -1,11 +1,13 @@
 <h1>新規作成</h1>
 <form action="/tasks/create" method="post">
-	内容：<br>
-	<input type="text" name="title"><br>
-	登録者：<br>
-	<span th:textarea="${session.user.name}"></span><br>
-	<input type="submit" value="作成">
-</form>
-<form action="/tasks" method="get">
-	<input type="submit" value="戻る">
+	<textarea  name="title" class="textarea_side" wrap="soft"></textarea>
+	<br><br>期限：
+	<input type="date" name="date">
+	<br>共有：
+	<select name="shared">
+		<option value="0">選択なし</option>
+		<option th:value="${shared.code}" th:each="shared:${session.sharedList}" th:text="${shared.name}"></option>
+	</select>
+	<br><br>
+	<input type="submit" value="作成" class="landscape_btn">
 </form>
